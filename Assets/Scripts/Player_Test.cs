@@ -17,6 +17,7 @@ public class Player_Test : MonoBehaviour
     [SerializeField] private int maxXP = 100; //xp
     private int startingXP = 0;
     private int currentXP;
+    public int playerLevel = 1;
 
     //link other scripts for variables & field to drag into
     public HealthBar healthBar;
@@ -24,9 +25,20 @@ public class Player_Test : MonoBehaviour
     public EnergyBar energyBar;
     public XPBar xpBar;
 
-    //xp system 
-    public int playerLevel = 1;
-    public TextMeshProUGUI levelNumberText; //TMP uses TextMeshProUGUI SMH DumbA
+//TMP Progres Bars stuff
+    //TMP progress bar current values
+    [Header("Progress Bar Current Values Text Bar")]
+        [SerializeField] private TextMeshProUGUI levelNumberText; //TMP uses TextMeshProUGUI SMH DumbA
+        [SerializeField] private TextMeshProUGUI hpNumberText;
+        [SerializeField] private TextMeshProUGUI mpNumberText;
+        [SerializeField] private TextMeshProUGUI energyNumberText;
+        [SerializeField] private TextMeshProUGUI xpNumberText;
+    //TMP progress bar max values
+    [Header("Progress Bar Out-Of Values")]
+        [SerializeField] private TextMeshProUGUI hpMaxNumberText;
+        [SerializeField] private TextMeshProUGUI mpMaxNumberText;
+        [SerializeField] private TextMeshProUGUI energyMaxNumberText;
+        [SerializeField] private TextMeshProUGUI xpMaxNumberText;
 
     // Start is called before the first frame update
     void Start() 
@@ -44,15 +56,27 @@ public class Player_Test : MonoBehaviour
         currentXP = startingXP;
         xpBar.SetXP(startingXP);
     }
-
+    
     // Update is called once per frame
     void Update()
     {
+        //set current Number/values(?) txt of progress bars to slider values "?/Max #"
+        hpNumberText.text = healthBar.slider.value.ToString("");
+        mpNumberText.text = mpBar.slider.value.ToString("");
+        energyNumberText.text = energyBar.slider.value.ToString("");
+        xpNumberText.text = xpBar.slider.value.ToString("");
+
+        //set max number values(?) txt of progress bars "#/?"
+        hpMaxNumberText.text = healthBar.slider.maxValue.ToString("");
+        mpMaxNumberText.text = mpBar.slider.maxValue.ToString("");
+        energyMaxNumberText.text = energyBar.slider.maxValue.ToString("");
+        xpMaxNumberText.text = xpBar.slider.maxValue.ToString("");
+
         //Test Leveling
         //xpBar.fillAmount = currentXP / maxXP;
         //levelNumberText.text = playerLevel + "";
 
-    //Test Decreases
+        //Test Decreases
         //test decrease health bar
         if (Input.GetKeyDown(KeyCode.Space))
         {
