@@ -27,18 +27,23 @@ public class Player_Test : MonoBehaviour
 
 //TMP Progres Bars stuff
     //TMP progress bar current values
-    [Header("Progress Bar Current Values Text Bar")]
+    [Header("Progress Bar Current Values Texts")]
         [SerializeField] private TextMeshProUGUI levelNumberText; //TMP uses TextMeshProUGUI SMH DumbA
         [SerializeField] private TextMeshProUGUI hpNumberText;
         [SerializeField] private TextMeshProUGUI mpNumberText;
         [SerializeField] private TextMeshProUGUI energyNumberText;
         [SerializeField] private TextMeshProUGUI xpNumberText;
     //TMP progress bar max values
-    [Header("Progress Bar Out-Of Values")]
+    [Header("Progress Bar Max Values Texts")]
         [SerializeField] private TextMeshProUGUI hpMaxNumberText;
         [SerializeField] private TextMeshProUGUI mpMaxNumberText;
         [SerializeField] private TextMeshProUGUI energyMaxNumberText;
         [SerializeField] private TextMeshProUGUI xpMaxNumberText;
+    //TMP text stuff
+    [Header("No Resources Texts")]
+        public GameObject noHPText;
+        public GameObject noMPText;
+        public GameObject noEnergyText;
 
     // Start is called before the first frame update
     void Start() 
@@ -52,9 +57,14 @@ public class Player_Test : MonoBehaviour
         //set max energy & energy bar to max energy
         currentEnergy = maxEnergy;
         energyBar.SetMaxEnergy(maxEnergy);
-
+        //set starting xp "0" & level to 1
         currentXP = startingXP;
         xpBar.SetXP(startingXP);
+
+        //No Resources Texts set not active
+        noHPText.SetActive(false);
+        noMPText.SetActive(false);
+        noEnergyText.SetActive(false);
     }
     
     // Update is called once per frame
@@ -118,19 +128,31 @@ public class Player_Test : MonoBehaviour
     void TakeDamage(int hp)
     {
         currentHealth -= hp;
-        healthBar.SetHealth(currentHealth);
+        healthBar.SetHealth(currentHealth); //if hp is 0 or lower, no hp text shows
+        if (currentHealth <= 0)
+        {
+           noHPText.SetActive(true);
+        }
     }
 
     void TakeMP(int mp)
     {
         currentMP -= mp;
         mpBar.SetMP(currentMP);
+        if (currentMP <= 0) //if mp is 0 or lower, no mp text shows 
+        {
+            noMPText.SetActive(true);
+        }
     }
 
     void TakeEnergy(int energy)
     {
         currentEnergy -= energy;
         energyBar.SetEnergy(currentEnergy);
+        if (currentEnergy <= 0) //if energy is 0 or lower, no energy text shows
+        {
+            noEnergyText.SetActive(true);
+        }
     }
 
     void GiveHealth(int hp)
