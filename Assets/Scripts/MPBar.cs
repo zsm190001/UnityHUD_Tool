@@ -4,17 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class MP_Bar : MonoBehaviour
+public class MPBar : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Slider slider;
+    public Gradient gradient;
+    public Image fill;
 
-    // Update is called once per frame
-    void Update()
+
+    public void SetMaxMP(int mp)
     {
-        
+        slider.maxValue = mp;
+        slider.value = mp;
+        fill.color = gradient.Evaluate(1f);
+    }
+    public void SetMP(int mp)
+    {
+        slider.value = mp;
+        fill.color = gradient.Evaluate(slider.normalizedValue);
     }
 }
