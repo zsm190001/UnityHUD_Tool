@@ -6,15 +6,21 @@ using UnityEngine.UI;
 
 public class XPBar : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Slider slider;
+    public Gradient gradient;
+    public Image fill;
 
-    // Update is called once per frame
-    void Update()
+   
+
+    public void SetMaxXP(int xp)
     {
-        
+        slider.maxValue = xp;
+        slider.value = xp;
+        fill.color = gradient.Evaluate(1f);
+    }
+    public void SetXP(int xp)
+    {
+        slider.value = xp;
+        fill.color = gradient.Evaluate(slider.normalizedValue);
     }
 }

@@ -1,23 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro; //you need it dumbA for TMP stuff
 
 public class Player_Test : MonoBehaviour
 {
+    [Header("General Bar Stats")]
     //variables for max & current health/mp/energy
-    public int maxHealth = 10;
-    public int currentHealth;
+    [SerializeField] private int maxHealth = 10; //health
+    private int currentHealth;
+    [SerializeField] private int maxMP = 10; //mp
+    private int currentMP;
+    [SerializeField] private int maxEnergy = 10; //energy
+    private int currentEnergy;
+    [SerializeField] private int maxXP = 100; //xp
+    private int startingXP = 0;
+    private int currentXP;
 
-    public int maxMP = 10;
-    public int currentMP;
-
-    public int maxEnergy = 10;
-    public int currentEnergy;
-
-    //link other scripts for variables & etc.
+    //link other scripts for variables & field to drag into
     public HealthBar healthBar;
     public MPBar mpBar;
     public EnergyBar energyBar;
+    public XPBar xpBar;
+
+    //xp system 
+    public int playerLevel = 1;
+    public TextMeshProUGUI levelNumberText; //TMP uses TextMeshProUGUI SMH DumbA
 
     // Start is called before the first frame update
     void Start() 
@@ -31,31 +40,62 @@ public class Player_Test : MonoBehaviour
         //set max energy & energy bar to max energy
         currentEnergy = maxEnergy;
         energyBar.SetMaxEnergy(maxEnergy);
+
+        currentXP = startingXP;
+        xpBar.SetXP(startingXP);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //test health bar
+        //Test Leveling
+        //xpBar.fillAmount = currentXP / maxXP;
+        //levelNumberText.text = playerLevel + "";
+
+    //Test Decreases
+        //test decrease health bar
         if (Input.GetKeyDown(KeyCode.Space))
         {
             TakeDamage(1);
         }
-        //test MP bar
+        //test decrease MP bar
         if (Input.GetKeyDown(KeyCode.M))
         {
             TakeMP(1);
         }
-        //test energy bar
+        //test decrease energy bar
         if (Input.GetKeyDown(KeyCode.E))
         {
             TakeEnergy(1);
         }
+
+    //Test Increases
+        //test increase health bar
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            GiveHealth(1);
+        }
+        //test increase MP bar
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            GiveMP(1);
+        }
+        //test increase energy bar
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            GiveEnergy(1);
+        }
+        //test increase xp bar
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            GiveXP(5);
+            
+        }
     }
 
-    void TakeDamage(int damage)
+    void TakeDamage(int hp)
     {
-        currentHealth -= damage;
+        currentHealth -= hp;
         healthBar.SetHealth(currentHealth);
     }
 
@@ -69,5 +109,37 @@ public class Player_Test : MonoBehaviour
     {
         currentEnergy -= energy;
         energyBar.SetEnergy(currentEnergy);
+    }
+
+    void GiveHealth(int hp)
+    {
+        currentHealth += hp;
+        healthBar.SetHealth(currentHealth);
+    }
+
+    void GiveMP(int mp)
+    {
+        currentMP += mp;
+        mpBar.SetMP(currentMP);
+    }
+
+    void GiveEnergy(int energy)
+    {
+        currentEnergy += energy;
+        energyBar.SetEnergy(currentEnergy);
+    }
+
+    void GiveXP(int xp)
+    {
+        currentXP += xp;
+        xpBar.SetXP(currentXP);
+        //level up if xp reqs met
+        if (currentXP >= maxXP)
+        {
+            playerLevel++;
+            levelNumberText.text = playerLevel.ToString("");
+            currentXP = 0;
+            maxXP *= playerLevel;
+        }
     }
 }
