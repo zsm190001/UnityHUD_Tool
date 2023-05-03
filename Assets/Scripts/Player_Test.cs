@@ -60,22 +60,8 @@ public class Player_Test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //set current Number/values(?) txt of progress bars to slider values "?/Max #"
-        hpNumberText.text = healthBar.slider.value.ToString("");
-        mpNumberText.text = mpBar.slider.value.ToString("");
-        energyNumberText.text = energyBar.slider.value.ToString("");
-        xpNumberText.text = xpBar.slider.value.ToString("");
-
-        //set max number values(?) txt of progress bars "#/?"
-        hpMaxNumberText.text = healthBar.slider.maxValue.ToString("");
-        mpMaxNumberText.text = mpBar.slider.maxValue.ToString("");
-        energyMaxNumberText.text = energyBar.slider.maxValue.ToString("");
-        xpMaxNumberText.text = xpBar.slider.maxValue.ToString("");
-
-        //Test Leveling
-        //xpBar.fillAmount = currentXP / maxXP;
-        //levelNumberText.text = playerLevel + "";
-
+        
+    //Progress Bar Testing
         //Test Decreases
         //test decrease health bar
         if (Input.GetKeyDown(KeyCode.Space))
@@ -115,6 +101,18 @@ public class Player_Test : MonoBehaviour
             GiveXP(5);
             
         }
+
+        //set current Number/values(?) txt of progress bars to slider values "?/Max #"
+        hpNumberText.text = healthBar.slider.value.ToString("");
+        mpNumberText.text = mpBar.slider.value.ToString("");
+        energyNumberText.text = energyBar.slider.value.ToString("");
+        xpNumberText.text = xpBar.slider.value.ToString("");
+
+        //set max number values(?) txt of progress bars "#/?"
+        hpMaxNumberText.text = healthBar.slider.maxValue.ToString("");
+        mpMaxNumberText.text = mpBar.slider.maxValue.ToString("");
+        energyMaxNumberText.text = energyBar.slider.maxValue.ToString("");
+        xpMaxNumberText.text = xpBar.slider.maxValue.ToString("");
     }
 
     void TakeDamage(int hp)
